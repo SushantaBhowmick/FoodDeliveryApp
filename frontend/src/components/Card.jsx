@@ -1,46 +1,80 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatchCart, useCart } from './ContextReducer'
 
 const Card = (props) => {
   const dispatch = useDispatchCart();
   const data = useCart();
   const priceRef = useRef()
+  const [qty, setQty] = useState(1);
+  const [size, setSize] = useState("");
+  let navigate = useNavigate()
+
 
   let options = props.options;
   let priceOptions = Object.keys(options);
-  let food = props.foodItem;
-
-  const [qty, setQty] = useState(1);
-  const [size, setSize] = useState("");
-
+  let foodItem = props.item;
+  const handleClick = () => {
+    if (!localStorage.getItem("token")) {
+      navigate("/login")
+    }
+  }
+  const handleQty = (e) => {
+    setQty(e.target.value);
+  }
+  const handleOptions = (e) => {
+    setSize(e.target.value);
+  }
   const handleAddToCart = async () => {
+    let food = []
+    for (const item of data) {
+      if (item.id === foodItem._id) {
+        food = item;
 
-    await dispatch({
-      type: "ADD",
-      id: food._id,
-      name: food.name,
-      price: finalPrice,
-      qty: qty,
-      size: size,
-      desc: food.description,
-    })
-    console.log(data);
+        break;
+      }
+    }
+    console.log(food)
+    console.log(new Date())
+    if (food !== []) {
+      if (food.size === size) {
+        await dispatch({ type: "UPDATE", id: foodItem._id, price: finalPrice, qty: qty })
+        return
+      }
+      else if (food.size !== size) {
+        await dispatch({ type: "ADD", id: foodItem._id, name: foodItem.name, price: finalPrice, qty: qty, size: size,img: props.ImgSrc })
+        console.log("Size different so simply ADD one more to the list")
+        return
+      }
+      return
+    }
+
+    await dispatch({ type: "ADD", id: foodItem._id, name: foodItem.name, price: finalPrice, qty: qty, size: size })
+
+
+    // setBtnEnable(true)
+
   }
 
-  const finalPrice = qty * parseInt(options[size])
-  useEffect(()=>{
+  useEffect(() => {
     setSize(priceRef.current.value)
-  },[])
+  }, [])
+
+  // useEffect(()=>{
+  // checkBtn();
+  //   },[data])
+
+  let finalPrice = qty * parseInt(options[size]);   //This is where Price is changing
+  
   return (
     <>
 
       <div>
         <div className="card bg-dark mt-3" style={{ "width": "16rem", "maxHeight": "100vh" }}>
-          <img src={food.img} className="card-img-top" alt="..." style={{ height: "120px", objectFit: "fill" }} />
+          <img src={props.ImgSrc} className="card-img-top" alt="..." style={{ height: "120px", objectFit: "fill" }} />
           <div className="card-body">
-            <h5 className="card-title">{food.name}</h5>
-            <p className="card-text">{food.description}</p>
+            <h5 className="card-title">{foodItem.name}</h5>
+            <p className="card-text">{foodItem.description}</p>
             <div className="container w-100">
               <select name="" className="m-2 h-100 bg-success rounded" onChange={(e) => setQty(e.target.value)}>
                 {

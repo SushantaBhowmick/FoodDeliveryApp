@@ -79,6 +79,8 @@ const Home = () => {
                           <div key={filterItems._id} className='col-12 col-md-6 col-lg-3'>
                             <Card 
                             foodItem={filterItems}
+                            item={filterItems}
+                            ImgSrc={filterItems.img}
                             options ={filterItems.options[0]}
 
                             />
