@@ -35,7 +35,7 @@ exports.loginUser = catchAsyncErr(async (req, res, next) => {
         return next(new ErrorHandler("Please Enter Email & Password",400));
     }
 
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email }).select("+password");;
     if (!user) {
         return next(new ErrorHandler("User Doesn't Exixts", 401))
     }
@@ -63,4 +63,13 @@ exports.loginUser = catchAsyncErr(async (req, res, next) => {
     })
 
 
+})
+
+//get user Details
+exports.myProfile =catchAsyncErr(async(req,res,next)=>{
+    const user = await User.findById(req.params.id);
+    res.status(200).json({
+        success: true,
+        user
+    })
 })

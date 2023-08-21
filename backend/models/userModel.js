@@ -25,6 +25,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: [true, "Please enter a password"],
         minlength: [5, "Password must be at least 5 character"],
+        select: false,
     },
     date: {
         type: Date,

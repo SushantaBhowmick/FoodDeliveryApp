@@ -6,6 +6,7 @@ const errorMiddleware = require("./middlewares/error")
 const { connectDB } = require('./db');
 const userRoute = require('./routes/userRoutes.js');
 const dispRoute = require('./routes/dispRoutes');
+const orderRoute = require('./routes/orderRoutes');
 const mongoose = require('mongoose');
 const app = express();
 
@@ -35,6 +36,7 @@ app.use(express.json())
 //routes
 app.use('/api/user',userRoute)
 app.use('/api/disp',dispRoute)
+app.use('/api/order',orderRoute)
 
 app.use(errorMiddleware)
 
