@@ -11,9 +11,13 @@ const Header = () => {
 
   const handleLogout =()=>{
     localStorage.removeItem("authToken");
+    localStorage.removeItem("userEmail");
+    localStorage.removeItem("userID");
     navigate('/login')
   }
+const handleProfile =()=>{
 
+}
   
   const loadCart = () => {
     setCartView(true)
@@ -56,8 +60,12 @@ const items = useCart();
                     }
                   </Badge>
                 </div>
+              
                 {cartView ? <Modal onClose={() => setCartView(false)}><Cart></Cart></Modal> : ""}
 
+                <div className="btn profile bg-white text-success mx-1" onClick={handleProfile}>
+                  <Link to={'/profile'}>Profile</Link>
+                </div>
                 <div className="btn bg-white text-danger mx-1" onClick={handleLogout}>
                   Logout
                 </div>

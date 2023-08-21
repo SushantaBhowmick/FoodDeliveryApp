@@ -22,9 +22,10 @@ const loginHandleSubmit = async (e) => {
     const json = await response.json();
 
     if (json.success) {
+        localStorage.setItem("userEmail",credentials.email)
         localStorage.setItem('authToken',json.authToken);
-        console.log(localStorage.getItem('authToken'))
-        navigate('/')
+        localStorage.setItem('userID',json.user._id);
+        navigate('/profile')
     }
     else{
         alert("Enter Valid Credentials")

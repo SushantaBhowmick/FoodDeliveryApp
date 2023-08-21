@@ -24,3 +24,34 @@ code {
     -o-background-size: cover;
     background-size: cover;
 } */
+
+.profile a{
+  text-decoration: none;
+}
+.profilePage{
+  min-height: 100vh;
+}
+/* .footer{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+} */
+.pro{
+ display: flex;
+ flex-direction: column;
+ justify-content: center;
+ text-align: center;
+ align-items: center;
+ margin-top: 5rem;
+
+}
+.pro >div{
+  display: flex;
+  margin: 1rem 2rem;
+  padding: 5px;
+}
+.pro >div >p{
+margin-left: 1rem;
+font-size: bold;
+}

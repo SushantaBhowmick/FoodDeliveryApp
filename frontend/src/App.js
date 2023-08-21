@@ -8,6 +8,8 @@ import '../node_modules/bootstrap-dark-5/dist/css/bootstrap-dark.min.css'
 import '../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js'
 import SignUp from './components/pages/SignUp';
 import { CartProvider } from './components/ContextReducer';
+import MyOrder from './components/pages/MyOrder';
+import Profile from './components/pages/Profile';
 
 function App() {
   return (
@@ -19,6 +21,8 @@ function App() {
               <Route exact path='' element={<Home />} />
               <Route exact path='login' element={<Login />} />
               <Route exact path='signup' element={<SignUp />} />
+              <Route exact path='myorders' element={<MyOrder />} />
+              <Route exact path='profile' element={<Profile />} />
             </Route>
           </Routes>
         </div>

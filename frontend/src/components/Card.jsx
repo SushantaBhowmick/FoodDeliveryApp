@@ -98,10 +98,12 @@ const Card = (props) => {
 
             </div>
             <hr />
-            <button className="btn btn-success justify-center ms-2" onClick={handleAddToCart}>
-              {/* <Link to={`/cart/${props.id}`} >Add To Cart</Link> */}
-              Add To Cart
-            </button>
+           {localStorage.getItem('authToken')?(
+             <button className="btn btn-success justify-center ms-2" onClick={handleAddToCart}>
+             {/* <Link to={`/cart/${props.id}`} >Add To Cart</Link> */}
+             Add To Cart
+           </button>
+           ):(<div>Login To Order the Food</div>)}
           </div>
         </div>
       </div>
